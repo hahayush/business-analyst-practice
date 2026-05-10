@@ -135,14 +135,14 @@ LESSONS: list[Lesson] = [
 
 
 NOTES_BY_LESSON = {
-    "mental-math": "https://www.mathsisfun.com/numbers/percentage.html",
-    "gmat-data-sufficiency": "https://www.mba.com/exams/gmat-exam/about/verbal/data-sufficiency",
-    "bayes-theorem": "https://plato.stanford.edu/entries/bayes-theorem/",
-    "saas-unit-economics": "https://a16z.com/2015/08/21/16-metrics/",
-    "market-sizing-fermi": "https://en.wikipedia.org/wiki/Fermi_problem",
-    "cagr-roi": "https://www.investopedia.com/terms/c/cagr.asp",
-    "algorithm-scaling": "https://www.bigocheatsheet.com/",
-    "game-theory": "https://plato.stanford.edu/entries/game-theory/"
+    "quant-expected-value": "https://plato.stanford.edu/entries/bayes-theorem/",
+    "quant-unit-econ": "https://a16z.com/2015/08/21/16-metrics/",
+    "quant-finance": "https://www.investopedia.com/terms/c/cagr.asp",
+    "quant-algorithms": "https://www.bigocheatsheet.com/",
+    "quant-fermi": "https://en.wikipedia.org/wiki/Fermi_problem",
+    "quant-data-suff": "https://www.mba.com/exams/gmat-exam/about/verbal/data-sufficiency",
+    "quant-stats": "https://www.investopedia.com/terms/s/sharperatio.asp",
+    "quant-game-theory": "https://plato.stanford.edu/entries/game-theory/"
 }
 
 LESSON_BY_ID = {l.id: l for l in LESSONS}

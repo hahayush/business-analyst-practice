@@ -231,21 +231,21 @@ LESSONS: list[Lesson] = [
     ]),
     # ─── Chapter 9: Excel Shortcuts & Efficiency ───
     Lesson("shortcuts", 9, "Shortcuts & Productivity", ["keyboard shortcuts","efficiency","tips"], [PRODUCTS], [
-        Task("sh1","What does Ctrl+Shift+L do in Excel?","quiz","easy","Amazon",
+        Task("sh1","What does Cmd+Shift+F do in Excel on Mac?","quiz","easy","Amazon",
              options=("Locks cells","Toggles AutoFilter on/off","Opens Find & Replace","Inserts a chart"),
-             answer_index=1,explanation="Ctrl+Shift+L toggles filter dropdowns on column headers. Essential for quick data exploration."),
-        Task("sh2","What shortcut fills down (copies formula to cells below)?","quiz","easy","",
-             options=("Ctrl+D","Ctrl+F","Ctrl+Shift+D","Alt+D"),
-             answer_index=0,explanation="Ctrl+D fills down from the cell above. Select the range first, then Ctrl+D."),
-        Task("sh3","You want to convert a formula to its computed value (paste as value). What shortcut?","quiz","medium","Stripe",
-             options=("Ctrl+C then Ctrl+V","Ctrl+C then Ctrl+Shift+V","Ctrl+C then Alt+E,S,V,Enter","Both B and C work"),
-             answer_index=3,explanation="Ctrl+Shift+V (newer Excel) or Alt+E,S,V,Enter (classic) both paste as values, removing formulas."),
-        Task("sh4","F4 while editing a cell reference does what?","quiz","easy","Google",
+             answer_index=1,explanation="Cmd+Shift+F toggles filter dropdowns on column headers. Essential for quick data exploration."),
+        Task("sh2","What Mac shortcut fills down (copies formula to cells below)?","quiz","easy","",
+             options=("Cmd+D","Cmd+F","Cmd+Shift+D","Option+D"),
+             answer_index=0,explanation="Cmd+D fills down from the cell above. Select the range first, then Cmd+D."),
+        Task("sh3","You want to convert a formula to its computed value (paste as value) on a Mac. What shortcut?","quiz","medium","Stripe",
+             options=("Cmd+C then Cmd+V","Cmd+C then Cmd+Shift+V","Cmd+C then Cmd+Ctrl+V","Both B and C work"),
+             answer_index=3,explanation="Cmd+Shift+V or Cmd+Ctrl+V both paste as values on Mac, removing formulas."),
+        Task("sh4","Cmd+T while editing a cell reference on Mac does what?","quiz","easy","Google",
              options=("Deletes the cell","Cycles through absolute/relative references ($A$1 → A$1 → $A1 → A1)","Repeats last action","Opens help"),
-             answer_index=1,explanation="F4 cycles through reference types. Essential for locking rows/columns when copying formulas."),
-        Task("sh5","What does Ctrl+` (backtick) do?","quiz","medium","",
+             answer_index=1,explanation="Cmd+T cycles through reference types on Mac. Essential for locking rows/columns when copying formulas."),
+        Task("sh5","What does Ctrl+` (backtick) do on Mac?","quiz","medium","",
              options=("Inserts a formula","Toggles formula view — shows all formulas instead of results","Opens VBA editor","Adds a comment"),
-             answer_index=1,explanation="Ctrl+` toggles between showing formula results and the actual formulas in cells. Great for auditing."),
+             answer_index=1,explanation="Ctrl+` (or Cmd+`) toggles between showing formula results and the actual formulas in cells. Great for auditing."),
     ]),
     # ─── Chapter 10: FILTER, SORT, UNIQUE (Dynamic Arrays) ───
     Lesson("dynamic-arrays", 10, "Dynamic Arrays", ["FILTER","SORT","UNIQUE","SORTBY","spill ranges"], [SALES], [
@@ -265,16 +265,16 @@ LESSONS: list[Lesson] = [
 
 
 NOTES_BY_LESSON = {
-    "excel-basics": "https://support.microsoft.com/en-us/excel",
-    "vlookup": "https://support.microsoft.com/en-us/office/vlookup-function-0bbc8083-26fe-4963-8ab8-93a18ad188a1",
-    "xlookup": "https://support.microsoft.com/en-us/office/xlookup-function-b7fd680e-6d10-43e6-84f9-88eae8bf5929",
+    "vlookup-xlookup": "https://support.microsoft.com/en-us/office/xlookup-function-b7fd680e-6d10-43e6-84f9-88eae8bf5929",
     "index-match": "https://support.microsoft.com/en-us/office/index-function-a5dcf0dd-996d-40a4-a822-b56b061328bd",
-    "if-statements": "https://support.microsoft.com/en-us/office/if-function-69aed7c9-4e8a-4755-a9bc-aa8bbff73be2",
-    "nested-if": "https://support.microsoft.com/en-us/office/ifs-function-36329a26-37b2-467c-972b-4a39bd951d45",
-    "countifs": "https://support.microsoft.com/en-us/office/countifs-function-dda3dc6e-f74e-4aee-88bc-aa8c2a866842",
-    "sumifs": "https://support.microsoft.com/en-us/office/sumifs-function-c9e747f5-79d1-4ad9-a78c-06be5d496e57",
+    "pivot-tables": "https://support.microsoft.com/en-us/office/create-a-pivottable-to-analyze-worksheet-data-a9a84538-bfe9-40a9-a8e9-f99134456576",
+    "conditional-functions": "https://support.microsoft.com/en-us/office/countifs-function-dda3dc6e-f74e-4aee-88bc-aa8c2a866842",
+    "data-cleaning": "https://support.microsoft.com/en-us/office/trim-function-410388fa-c5df-49c6-b16c-9e5630b479f9",
     "date-functions": "https://support.microsoft.com/en-us/office/date-function-e36c0c8c-4104-49da-ab83-82328b832349",
-    "financial-functions": "https://support.microsoft.com/en-us/office/npv-function-8672cb67-2576-4d07-b67b-ac28acf2a568"
+    "advanced-formulas": "https://support.microsoft.com/en-us/office/iferror-function-c526fd07-caeb-47b8-8bb6-63f3e417f611",
+    "dashboards-charts": "https://support.microsoft.com/en-us/office/available-chart-types-in-office-a6187218-807e-4103-9e0a-27cdb19afb90",
+    "shortcuts": "https://support.microsoft.com/en-us/office/keyboard-shortcuts-in-excel-1798d9d5-842a-42b8-9c99-9b7213f0040f",
+    "dynamic-arrays": "https://support.microsoft.com/en-us/office/filter-function-f4f7cb66-82eb-4767-8f7c-4877ad80c759"
 }
 
 LESSON_BY_ID = {l.id: l for l in LESSONS}
