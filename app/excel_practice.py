@@ -263,18 +263,32 @@ LESSONS: list[Lesson] = [
     ]),
 ]
 
+
+NOTES_BY_LESSON = {
+    "excel-basics": "https://support.microsoft.com/en-us/excel",
+    "vlookup": "https://support.microsoft.com/en-us/office/vlookup-function-0bbc8083-26fe-4963-8ab8-93a18ad188a1",
+    "xlookup": "https://support.microsoft.com/en-us/office/xlookup-function-b7fd680e-6d10-43e6-84f9-88eae8bf5929",
+    "index-match": "https://support.microsoft.com/en-us/office/index-function-a5dcf0dd-996d-40a4-a822-b56b061328bd",
+    "if-statements": "https://support.microsoft.com/en-us/office/if-function-69aed7c9-4e8a-4755-a9bc-aa8bbff73be2",
+    "nested-if": "https://support.microsoft.com/en-us/office/ifs-function-36329a26-37b2-467c-972b-4a39bd951d45",
+    "countifs": "https://support.microsoft.com/en-us/office/countifs-function-dda3dc6e-f74e-4aee-88bc-aa8c2a866842",
+    "sumifs": "https://support.microsoft.com/en-us/office/sumifs-function-c9e747f5-79d1-4ad9-a78c-06be5d496e57",
+    "date-functions": "https://support.microsoft.com/en-us/office/date-function-e36c0c8c-4104-49da-ab83-82328b832349",
+    "financial-functions": "https://support.microsoft.com/en-us/office/npv-function-8672cb67-2576-4d07-b67b-ac28acf2a568"
+}
+
 LESSON_BY_ID = {l.id: l for l in LESSONS}
 
 def _serialize_table(t: Table) -> dict:
     return {"name":t.name,"columns":list(t.columns),"rows":[list(r) for r in t.rows],"total":len(t.rows)}
 
 def lesson_index() -> list[dict[str, Any]]:
-    return [{"id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"taskCount":len(l.tasks)} for l in LESSONS]
+    return [{"id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"taskCount":len(l.tasks),"notesUrl":NOTES_BY_LESSON.get(l.id,"")} for l in LESSONS]
 
 def lesson_payload(lesson_id: str) -> dict[str, Any]:
     l = LESSON_BY_ID.get(lesson_id, LESSONS[0])
     return {
-        "id":l.id,"number":l.number,"title":l.title,"focus":l.focus,
+        "id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"notesUrl":NOTES_BY_LESSON.get(l.id,""),
         "tables":[_serialize_table(t) for t in l.tables],
         "tasks":[{
             "id":t.id,"prompt":t.prompt,"kind":t.kind,"difficulty":t.difficulty,

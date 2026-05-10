@@ -190,18 +190,32 @@ LESSONS: list[Lesson] = [
     ]),
 ]
 
+
+NOTES_BY_LESSON = {
+    "marketing-roi": "https://www.investopedia.com/terms/r/returnoninvestment.asp",
+    "cohort-analysis": "https://clevertap.com/blog/cohort-analysis/",
+    "ops-bottlenecks": "https://www.investopedia.com/terms/b/bottleneck.asp",
+    "financial-pl": "https://www.investopedia.com/terms/p/plstatement.asp",
+    "price-elasticity": "https://www.investopedia.com/terms/p/priceelasticity.asp",
+    "simpsons-paradox": "https://plato.stanford.edu/entries/paradox-simpson/",
+    "regressions": "https://hbr.org/2015/11/a-refresher-on-regression-analysis",
+    "funnel-math": "https://mixpanel.com/blog/funnel-analysis/",
+    "supply-chain": "https://www.investopedia.com/terms/e/economicorderquantity.asp",
+    "mrr-waterfall": "https://baremetrics.com/academy/mrr-waterfall"
+}
+
 LESSON_BY_ID = {l.id: l for l in LESSONS}
 
 def _serialize_table(t: Table) -> dict:
     return {"name":t.name,"columns":list(t.columns),"rows":[list(r) for r in t.rows],"total":len(t.rows)}
 
 def lesson_index() -> list[dict[str, Any]]:
-    return [{"id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"taskCount":len(l.tasks)} for l in LESSONS]
+    return [{"id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"taskCount":len(l.tasks),"notesUrl":NOTES_BY_LESSON.get(l.id,"")} for l in LESSONS]
 
 def lesson_payload(lesson_id: str) -> dict[str, Any]:
     l = LESSON_BY_ID.get(lesson_id, LESSONS[0])
     return {
-        "id":l.id,"number":l.number,"title":l.title,"focus":l.focus,
+        "id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"notesUrl":NOTES_BY_LESSON.get(l.id,""),
         "tables":[_serialize_table(t) for t in l.tables],
         "tasks":[{
             "id":t.id,"prompt":t.prompt,"kind":t.kind,"difficulty":t.difficulty,

@@ -357,6 +357,7 @@ function renderWorkspace() {
         </div>
         <div class="question-meta">
           ${state.lesson.focus.map(f => `<span class="pill">${esc(f)}</span>`).join("")}
+          ${state.lesson.notesUrl ? `<a href="${esc(state.lesson.notesUrl)}" target="_blank" class="pill strong" style="background:linear-gradient(135deg,#00a676,#2ec4b6);color:#fff;text-decoration:none;display:flex;align-items:center;gap:4px">Notes ↗</a>` : ""}
         </div>
       </div>
     </div>

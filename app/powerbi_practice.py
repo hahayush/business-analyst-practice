@@ -145,18 +145,30 @@ LESSONS: list[Lesson] = [
     ]),
 ]
 
+
+NOTES_BY_LESSON = {
+    "modeling": "https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-relationships-understand",
+    "power-query": "https://learn.microsoft.com/en-us/power-query/power-query-what-is-power-query",
+    "dax-essentials": "https://learn.microsoft.com/en-us/dax/dax-overview",
+    "calculate": "https://learn.microsoft.com/en-us/dax/calculate-function-dax",
+    "time-intelligence": "https://learn.microsoft.com/en-us/dax/time-intelligence-functions-dax",
+    "dax-optimization": "https://learn.microsoft.com/en-us/power-bi/guidance/dax-variables",
+    "advanced-filtering": "https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls",
+    "viz-best-practices": "https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-bookmarks"
+}
+
 LESSON_BY_ID = {l.id: l for l in LESSONS}
 
 def _serialize_table(t: Table) -> dict:
     return {"name":t.name,"columns":list(t.columns),"rows":[list(r) for r in t.rows],"total":len(t.rows)}
 
 def lesson_index() -> list[dict[str, Any]]:
-    return [{"id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"taskCount":len(l.tasks)} for l in LESSONS]
+    return [{"id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"taskCount":len(l.tasks),"notesUrl":NOTES_BY_LESSON.get(l.id,"")} for l in LESSONS]
 
 def lesson_payload(lesson_id: str) -> dict[str, Any]:
     l = LESSON_BY_ID.get(lesson_id, LESSONS[0])
     return {
-        "id":l.id,"number":l.number,"title":l.title,"focus":l.focus,
+        "id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"notesUrl":NOTES_BY_LESSON.get(l.id,""),
         "tables":[_serialize_table(t) for t in l.tables],
         "tasks":[{
             "id":t.id,"prompt":t.prompt,"kind":t.kind,"difficulty":t.difficulty,

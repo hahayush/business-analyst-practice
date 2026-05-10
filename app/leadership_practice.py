@@ -178,18 +178,38 @@ LESSONS: list[Lesson] = [
     ]),
 ]
 
+
+NOTES_BY_LESSON = {
+    "customer-obsession": "https://www.aboutamazon.com/about-us/leadership-principles",
+    "ownership": "https://www.aboutamazon.com/about-us/leadership-principles",
+    "invent-simplify": "https://www.aboutamazon.com/about-us/leadership-principles",
+    "right-a-lot": "https://www.aboutamazon.com/about-us/leadership-principles",
+    "learn-curious": "https://www.aboutamazon.com/about-us/leadership-principles",
+    "hire-develop": "https://www.aboutamazon.com/about-us/leadership-principles",
+    "highest-standards": "https://www.aboutamazon.com/about-us/leadership-principles",
+    "think-big": "https://www.aboutamazon.com/about-us/leadership-principles",
+    "bias-for-action": "https://www.aboutamazon.com/about-us/leadership-principles",
+    "frugality": "https://www.aboutamazon.com/about-us/leadership-principles",
+    "earn-trust": "https://www.aboutamazon.com/about-us/leadership-principles",
+    "dive-deep": "https://www.aboutamazon.com/about-us/leadership-principles",
+    "disagree-commit": "https://www.aboutamazon.com/about-us/leadership-principles",
+    "deliver-results": "https://www.aboutamazon.com/about-us/leadership-principles",
+    "best-employer": "https://www.aboutamazon.com/about-us/leadership-principles",
+    "success-scale": "https://www.aboutamazon.com/about-us/leadership-principles"
+}
+
 LESSON_BY_ID = {l.id: l for l in LESSONS}
 
 def _serialize_table(t: Table) -> dict:
     return {"name":t.name,"columns":list(t.columns),"rows":[list(r) for r in t.rows],"total":len(t.rows)}
 
 def lesson_index() -> list[dict[str, Any]]:
-    return [{"id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"taskCount":len(l.tasks)} for l in LESSONS]
+    return [{"id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"taskCount":len(l.tasks),"notesUrl":NOTES_BY_LESSON.get(l.id,"")} for l in LESSONS]
 
 def lesson_payload(lesson_id: str) -> dict[str, Any]:
     l = LESSON_BY_ID.get(lesson_id, LESSONS[0])
     return {
-        "id":l.id,"number":l.number,"title":l.title,"focus":l.focus,
+        "id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"notesUrl":NOTES_BY_LESSON.get(l.id,""),
         "tables":[_serialize_table(t) for t in l.tables],
         "tasks":[{
             "id":t.id,"prompt":t.prompt,"kind":t.kind,"difficulty":t.difficulty,

@@ -181,18 +181,34 @@ LESSONS: list[Lesson] = [
     ]),
 ]
 
+
+NOTES_BY_LESSON = {
+    "rca-metrics": "https://www.mckinsey.com/capabilities/strategy-and-corporate-finance/our-insights/the-granularity-of-growth",
+    "guesstimates": "https://igotanoffer.com/blogs/mckinsey-case-interview-blog/market-sizing-questions",
+    "product-metrics": "https://a16z.com/2015/08/21/16-metrics/",
+    "ab-testing": "https://hbr.org/2017/09/a-refresher-on-ab-testing",
+    "market-entry": "https://www.investopedia.com/terms/p/porter.asp",
+    "operations": "https://www.investopedia.com/terms/b/bottleneck.asp",
+    "finance-cases": "https://www.investopedia.com/terms/e/ebitda.asp",
+    "ethics": "https://gdpr.eu/what-is-gdpr/",
+    "ma-synergy": "https://www.investopedia.com/terms/s/synergy.asp",
+    "gtm-strategy": "https://hbr.org/2021/04/the-right-way-to-build-your-go-to-market-strategy",
+    "war-gaming": "https://hbr.org/2004/10/blue-ocean-strategy",
+    "vendor-negotiation": "https://www.pon.harvard.edu/daily/batna/translate-your-batna-to-the-current-deal/"
+}
+
 LESSON_BY_ID = {l.id: l for l in LESSONS}
 
 def _serialize_table(t: Table) -> dict:
     return {"name":t.name,"columns":list(t.columns),"rows":[list(r) for r in t.rows],"total":len(t.rows)}
 
 def lesson_index() -> list[dict[str, Any]]:
-    return [{"id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"taskCount":len(l.tasks)} for l in LESSONS]
+    return [{"id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"taskCount":len(l.tasks),"notesUrl":NOTES_BY_LESSON.get(l.id,"")} for l in LESSONS]
 
 def lesson_payload(lesson_id: str) -> dict[str, Any]:
     l = LESSON_BY_ID.get(lesson_id, LESSONS[0])
     return {
-        "id":l.id,"number":l.number,"title":l.title,"focus":l.focus,
+        "id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"notesUrl":NOTES_BY_LESSON.get(l.id,""),
         "tables":[_serialize_table(t) for t in l.tables],
         "tasks":[{
             "id":t.id,"prompt":t.prompt,"kind":t.kind,"difficulty":t.difficulty,

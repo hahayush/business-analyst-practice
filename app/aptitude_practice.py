@@ -133,18 +133,30 @@ LESSONS: list[Lesson] = [
     ]),
 ]
 
+
+NOTES_BY_LESSON = {
+    "mental-math": "https://www.mathsisfun.com/numbers/percentage.html",
+    "gmat-data-sufficiency": "https://www.mba.com/exams/gmat-exam/about/verbal/data-sufficiency",
+    "bayes-theorem": "https://plato.stanford.edu/entries/bayes-theorem/",
+    "saas-unit-economics": "https://a16z.com/2015/08/21/16-metrics/",
+    "market-sizing-fermi": "https://en.wikipedia.org/wiki/Fermi_problem",
+    "cagr-roi": "https://www.investopedia.com/terms/c/cagr.asp",
+    "algorithm-scaling": "https://www.bigocheatsheet.com/",
+    "game-theory": "https://plato.stanford.edu/entries/game-theory/"
+}
+
 LESSON_BY_ID = {l.id: l for l in LESSONS}
 
 def _serialize_table(t: Table) -> dict:
     return {"name":t.name,"columns":list(t.columns),"rows":[list(r) for r in t.rows],"total":len(t.rows)}
 
 def lesson_index() -> list[dict[str, Any]]:
-    return [{"id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"taskCount":len(l.tasks)} for l in LESSONS]
+    return [{"id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"taskCount":len(l.tasks),"notesUrl":NOTES_BY_LESSON.get(l.id,"")} for l in LESSONS]
 
 def lesson_payload(lesson_id: str) -> dict[str, Any]:
     l = LESSON_BY_ID.get(lesson_id, LESSONS[0])
     return {
-        "id":l.id,"number":l.number,"title":l.title,"focus":l.focus,
+        "id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"notesUrl":NOTES_BY_LESSON.get(l.id,""),
         "tables":[_serialize_table(t) for t in l.tables],
         "tasks":[{
             "id":t.id,"prompt":t.prompt,"kind":t.kind,"difficulty":t.difficulty,

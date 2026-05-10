@@ -134,18 +134,30 @@ LESSONS: list[Lesson] = [
     ]),
 ]
 
+
+NOTES_BY_LESSON = {
+    "tableau-logic": "https://help.tableau.com/current/pro/desktop/en-us/functions_functions_logical.htm",
+    "tableau-lod": "https://help.tableau.com/current/pro/desktop/en-us/calculations_calculatedfields_lod_overview.htm",
+    "tableau-table-calcs": "https://help.tableau.com/current/pro/desktop/en-us/calculations_tablecalculations.htm",
+    "tableau-parameters": "https://help.tableau.com/current/pro/desktop/en-us/parameters_create.htm",
+    "tableau-sets": "https://help.tableau.com/current/pro/desktop/en-us/sortgroup_sets_create.htm",
+    "tableau-data-modeling": "https://help.tableau.com/current/pro/desktop/en-us/datasource_datamodel.htm",
+    "tableau-ooo": "https://help.tableau.com/current/pro/desktop/en-us/order_of_operations.htm",
+    "tableau-dashboards": "https://help.tableau.com/current/pro/desktop/en-us/dashboards.htm"
+}
+
 LESSON_BY_ID = {l.id: l for l in LESSONS}
 
 def _serialize_table(t: Table) -> dict:
     return {"name":t.name,"columns":list(t.columns),"rows":[list(r) for r in t.rows],"total":len(t.rows)}
 
 def lesson_index() -> list[dict[str, Any]]:
-    return [{"id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"taskCount":len(l.tasks)} for l in LESSONS]
+    return [{"id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"taskCount":len(l.tasks),"notesUrl":NOTES_BY_LESSON.get(l.id,"")} for l in LESSONS]
 
 def lesson_payload(lesson_id: str) -> dict[str, Any]:
     l = LESSON_BY_ID.get(lesson_id, LESSONS[0])
     return {
-        "id":l.id,"number":l.number,"title":l.title,"focus":l.focus,
+        "id":l.id,"number":l.number,"title":l.title,"focus":l.focus,"notesUrl":NOTES_BY_LESSON.get(l.id,""),
         "tables":[_serialize_table(t) for t in l.tables],
         "tasks":[{
             "id":t.id,"prompt":t.prompt,"kind":t.kind,"difficulty":t.difficulty,
