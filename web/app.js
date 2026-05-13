@@ -391,8 +391,11 @@ function renderTables() {
           </div>
         </div>
         <div class="data-table-wrap"><table>
-          <thead><tr>${t.columns.map(c => `<th>${esc(c)}</th>`).join("")}</tr></thead>
-          <tbody>${t.rows.map(r => `<tr>${r.map(v => `<td>${esc(v ?? "NULL")}</td>`).join("")}</tr>`).join("")}</tbody>
+          <thead>
+            <tr><th class="excel-index"></th>${t.columns.map((c, i) => `<th class="excel-index">${String.fromCharCode(65 + i)}</th>`).join("")}</tr>
+            <tr><th class="excel-index">1</th>${t.columns.map(c => `<th>${esc(c)}</th>`).join("")}</tr>
+          </thead>
+          <tbody>${t.rows.map((r, rowIdx) => `<tr><td class="excel-index">${rowIdx + 2}</td>${r.map(v => `<td>${esc(v ?? "NULL")}</td>`).join("")}</tr>`).join("")}</tbody>
         </table></div>
       </article>`).join("")}
     </div>

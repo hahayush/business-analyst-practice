@@ -1106,6 +1106,17 @@ button {
   text-transform: uppercase;
 }
 
+.data-table-wrap th.excel-index,
+.data-table-wrap td.excel-index {
+  background: #f3f2f1;
+  color: #605e5c;
+  text-align: center;
+  font-weight: 600;
+  border-right: 1px solid var(--line);
+  user-select: none;
+  width: 40px;
+}
+
 .data-table-wrap tr:last-child td {
   border-bottom: 0;
 }

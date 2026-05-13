@@ -102,15 +102,15 @@ LESSONS: list[Lesson] = [
     # ─── Chapter 1: VLOOKUP & XLOOKUP ───
     Lesson("vlookup-xlookup", 1, "VLOOKUP & XLOOKUP", ["VLOOKUP","XLOOKUP","exact match","error handling"], [LOOKUP_REF, ORDERS_TBL], [
         Task("v1","Write a VLOOKUP to find the UnitPrice of SKU-103 from the PriceList table.","formula","easy","Amazon",
-             "Look up SKU-103 in column 1, return column 3, exact match.","","=VLOOKUP(\"SKU-103\",A:D,3,FALSE)","89.99"),
+             "Look up SKU-103 in column 1, return column 3, exact match.","","=VLOOKUP(\"SKU-103\",A2:D6,3,FALSE)","89.99"),
         Task("v2","Write a VLOOKUP to find which Warehouse stores SKU-101.","formula","easy","",
-             "Warehouse is in column 4 of PriceList.","","=VLOOKUP(\"SKU-101\",A:D,4,FALSE)","Delhi"),
+             "Warehouse is in column 4 of PriceList.","","=VLOOKUP(\"SKU-101\",A2:D6,4,FALSE)","Delhi"),
         Task("v3","Write an XLOOKUP to find the ProductName for SKU-104, returning 'Not Found' if missing.","formula","medium","Stripe",
-             "XLOOKUP has a built-in if_not_found parameter.","","=XLOOKUP(\"SKU-104\",A:A,B:B,\"Not Found\")","Gadget Y"),
+             "XLOOKUP has a built-in if_not_found parameter.","","=XLOOKUP(\"SKU-104\",A2:A6,B2:B6,\"Not Found\")","Gadget Y"),
         Task("v4","A VLOOKUP returns #N/A. The lookup value has trailing spaces. Write the fix using TRIM.","formula","medium","Amazon",
              "Wrap the lookup value with TRIM to remove spaces.","","=VLOOKUP(TRIM(A2),PriceList,3,FALSE)","VLOOKUP(TRIM("),
         Task("v5","Write an XLOOKUP that searches the ProductName column and returns the SKU (reverse lookup).","formula","hard","Google",
-             "XLOOKUP can search any column, not just the first.","","=XLOOKUP(\"Widget B\",B:B,A:A)","SKU-102"),
+             "XLOOKUP can search any column, not just the first.","","=XLOOKUP(\"Widget B\",B2:B6,A2:A6)","SKU-102"),
         Task("v6","Why can't VLOOKUP do a reverse lookup (search right, return left)?","quiz","easy","",
              hint="Think about which column VLOOKUP always searches.",
              options=("VLOOKUP is too slow","VLOOKUP always searches the leftmost column of the range","VLOOKUP only works with numbers","VLOOKUP requires sorted data"),
@@ -122,14 +122,14 @@ LESSONS: list[Lesson] = [
     # ─── Chapter 2: INDEX MATCH ───
     Lesson("index-match", 2, "INDEX MATCH", ["INDEX","MATCH","two-way lookup","multi-criteria"], [LOOKUP_REF, ORDERS_TBL], [
         Task("im1","Write an INDEX-MATCH to find the UnitPrice for SKU-103.","formula","easy","Amazon",
-             "MATCH finds the row, INDEX returns the value from that row.","","=INDEX(C:C,MATCH(\"SKU-103\",A:A,0))","89.99"),
+             "MATCH finds the row, INDEX returns the value from that row.","","=INDEX(C2:C6,MATCH(\"SKU-103\",A2:A6,0))","89.99"),
         Task("im2","Write an INDEX-MATCH to find the Warehouse for the product named 'Tool Z'.","formula","medium","Stripe",
-             "Search the ProductName column, return the Warehouse column.","","=INDEX(D:D,MATCH(\"Tool Z\",B:B,0))","Mumbai"),
+             "Search the ProductName column, return the Warehouse column.","","=INDEX(D2:D6,MATCH(\"Tool Z\",B2:B6,0))","Mumbai"),
         Task("im3","What does the third argument '0' in MATCH mean?","quiz","easy","",
              options=("Sort ascending","Approximate match","Exact match","Wildcard match"),
              answer_index=2,explanation="0 = exact match, 1 = less than (sorted asc), -1 = greater than (sorted desc)."),
         Task("im4","Write a formula to find how many units customer 'Noah' ordered (Qty from Orders table, using INDEX-MATCH).","formula","medium","Google",
-             "Match 'Noah' in the CustomerName column, return Qty.","","=INDEX(D:D,MATCH(\"Noah\",B:B,0))","5"),
+             "Match 'Noah' in the CustomerName column, return Qty.","","=INDEX(D2:D9,MATCH(\"Noah\",B2:B9,0))","5"),
         Task("im5","Why is INDEX-MATCH preferred over VLOOKUP for large datasets?","quiz","medium","McKinsey",
              options=("It uses less memory","It can look up in any direction and handles column insertions gracefully","It automatically removes duplicates","It is a newer function"),
              answer_index=1,explanation="INDEX-MATCH uses separate ranges, so inserting/deleting columns doesn't break it. It can also look left, which VLOOKUP cannot."),
@@ -159,13 +159,13 @@ LESSONS: list[Lesson] = [
         Task("cf2","Write a nested IF: Rating >= 4.5 → 'Exceeds', >= 4.0 → 'Meets', else 'Below'. (Rating is column G)","formula","medium","Stripe",
              "Nested IFs cascade: IF(cond1, val1, IF(cond2, val2, val3))","","=IF(G2>=4.5,\"Exceeds\",IF(G2>=4,\"Meets\",\"Below\"))","IF(G2>=4.5"),
         Task("cf3","Write a COUNTIF to count how many employees are in the Analytics department.","formula","easy","",
-             "COUNTIF(range, criteria)","","=COUNTIF(C:C,\"Analytics\")","3"),
+             "COUNTIF(range, criteria)","","=COUNTIF(C2:C9,\"Analytics\")","3"),
         Task("cf4","Write a SUMIF to sum salaries of all employees in the Marketing department.","formula","medium","Amazon",
-             "SUMIF(criteria_range, criteria, sum_range)","","=SUMIF(C:C,\"Marketing\",D:D)","194000"),
+             "SUMIF(criteria_range, criteria, sum_range)","","=SUMIF(C2:C9,\"Marketing\",D2:D9)","194000"),
         Task("cf5","Write a COUNTIFS to count employees in Analytics with Rating > 4.0.","formula","medium","Google",
-             "COUNTIFS handles multiple criteria (AND logic).","","=COUNTIFS(C:C,\"Analytics\",G:G,\">4\")","2"),
+             "COUNTIFS handles multiple criteria (AND logic).","","=COUNTIFS(C2:C9,\"Analytics\",G2:G9,\">4\")","2"),
         Task("cf6","Write an AVERAGEIF to find the average salary of employees with Rating >= 4.0.","formula","medium","PhonePe",
-             "AVERAGEIF(criteria_range, criteria, average_range)","","=AVERAGEIF(G:G,\">=4\",D:D)","average salary where rating >= 4"),
+             "AVERAGEIF(criteria_range, criteria, average_range)","","=AVERAGEIF(G2:G9,\">=4\",D2:D9)","average salary where rating >= 4"),
         Task("cf7","What is the difference between SUMIF and SUMIFS?","quiz","easy","",
              options=("No difference","SUMIF handles one criterion; SUMIFS handles multiple criteria","SUMIFS is slower","SUMIF only works with text"),
              answer_index=1,explanation="SUMIF takes one criteria pair. SUMIFS takes multiple pairs with AND logic. Note: in SUMIFS, the sum_range comes FIRST."),
@@ -249,14 +249,14 @@ LESSONS: list[Lesson] = [
     ]),
     # ─── Chapter 10: FILTER, SORT, UNIQUE (Dynamic Arrays) ───
     Lesson("dynamic-arrays", 10, "Dynamic Arrays", ["FILTER","SORT","UNIQUE","SORTBY","spill ranges"], [SALES], [
-        Task("da1","Write a FILTER formula to show only rows where Region = 'North'. (Data in A1:G10)","formula","medium","Amazon",
-             "FILTER(array, include, [if_empty])","","=FILTER(A2:G10,C2:C10=\"North\")","FILTER("),
+        Task("da1","Write a FILTER formula to show only rows where Region = 'North'. (Data in A1:G11)","formula","medium","Amazon",
+             "FILTER(array, include, [if_empty])","","=FILTER(A2:G11,C2:C11=\"North\")","FILTER("),
         Task("da2","Write a UNIQUE formula to get all unique regions from column C.","formula","easy","",
-             "UNIQUE returns distinct values.","","=UNIQUE(C2:C10)","UNIQUE(C2"),
+             "UNIQUE returns distinct values.","","=UNIQUE(C2:C11)","UNIQUE(C2"),
         Task("da3","Write a SORT formula to sort the Sales data by Revenue (column F) in descending order.","formula","medium","Stripe",
-             "SORT(array, sort_index, sort_order) — -1 for descending.","","=SORT(A2:G10,6,-1)","SORT("),
+             "SORT(array, sort_index, sort_order) — -1 for descending.","","=SORT(A2:G11,6,-1)","SORT("),
         Task("da4","Write a FILTER with two conditions: Region = 'North' AND Revenue > 100.","formula","hard","Google",
-             "Multiply conditions for AND logic: (cond1)*(cond2)","","=FILTER(A2:G10,(C2:C10=\"North\")*(F2:F10>100))","FILTER("),
+             "Multiply conditions for AND logic: (cond1)*(cond2)","","=FILTER(A2:G11,(C2:C11=\"North\")*(F2:F11>100))","FILTER("),
         Task("da5","What is a 'spill range' in Excel?","quiz","easy","Amazon",
              options=("A range with errors","The range of cells that a dynamic array formula automatically fills with results","A named range","A print area"),
              answer_index=1,explanation="Dynamic array formulas (FILTER, SORT, UNIQUE) return multiple values that 'spill' into adjacent cells automatically."),
@@ -305,6 +305,15 @@ def check_answer(lesson_id: str, task_id: str, answer: int | str | None) -> dict
         correct = answer == t.answer_index
         return {"correct":correct,"message":"Correct!" if correct else "Not quite.","explanation":t.explanation,"expectedIndex":t.answer_index,"solution":t.solution}
     # formula task — check if user's formula contains key parts of the expected answer
+    if answer is False or answer == 0 or str(answer).strip().upper() in ("FALSE", "0", ""):
+        return {
+            "correct": False,
+            "message": "Not quite — check the expected formula.",
+            "explanation": t.explanation,
+            "solution": t.solution,
+            "expected": t.expected
+        }
+        
     # Normalize by removing spaces, $, and converting to upper
     def normalize(s):
         return str(s or "").strip().upper().replace(" ","").replace("$","")
